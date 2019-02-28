@@ -27,32 +27,40 @@ class Dashboard extends StatefulWidget {
 
   //Card item
   Widget myItems(IconData icon, String title, Color color){
-      return Container(
-        decoration: _buildShadowAndRoundedCorners(),
-        child: Material(
-          color: Colors.white.withOpacity(0.4),
-          elevation: 12.0,
-          shadowColor: Colors.black54,
+      return Material(
+        color: Colors.transparent,
+        child: InkWell(
           borderRadius: BorderRadius.circular(12.0),
-          child: Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Flexible(child: _buildColumn(title, icon, color), flex: 1, fit: FlexFit.tight,)
-                ],
+          highlightColor: color,
+          onTap: (){},
+          child: Container(
+            decoration: _buildShadowAndRoundedCorners(),
+            child: Material(
+              color: Colors.white.withOpacity(0.4),
+              elevation: 12.0,
+              shadowColor: Colors.black54,
+              borderRadius: BorderRadius.circular(12.0),
+              child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Flexible(child: _buildColumn(title, icon, color), flex: 1, fit: FlexFit.tight,)
+                    ],
+                  ),
               ),
             ),
-        ),
-      );
-    }
+          ),
+      ),
+    ); 
+  }
 //Construye el texto
-    Widget _buildText(String title){
+    Widget _buildText(String title, Color color){
       return Center(
         child: Text(
           title,
           style:TextStyle(
-          color: Colors.blueAccent,
+          color: color,
           fontSize: 18.0,
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w800,
@@ -60,31 +68,35 @@ class Dashboard extends StatefulWidget {
         ),
       );
     }
-
+//Construye el icono
     Widget _buildIcon(IconData icon, Color color){
-      return Padding(
-          padding: const EdgeInsets.all(8.0),
+      return Material(
+        color: color.withOpacity(0.7),
+        borderRadius: BorderRadius.circular(50.0),
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
           child: Icon(
             icon,
-            color: Colors.blueAccent,
-            size: MediaQuery.of(context).size.height*0.08,
+            color: Colors.white,
+            size: MediaQuery.of(context).size.height*0.07,
             ),
-      );
+          ),
+       ); 
     }
-
+//Construye las columnas
     Widget _buildColumn(String title, IconData icon, Color color){
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-        //Text
-        Flexible(child: _buildText(title), flex: 1, fit: FlexFit.loose),
         //Icon
-        Flexible(child: _buildIcon(icon, color), flex: 2, fit: FlexFit.loose)
+        Flexible(child: _buildIcon(icon, color), flex: 3, fit: FlexFit.loose),
+        //Text
+        Flexible(child: _buildText(title, color), flex: 1, fit: FlexFit.loose),
         ],
       );
     }
-
+//Junta y construye todo el contenido
     Widget _buildContent(){
       return StaggeredGridView.count(
         crossAxisCount: 2,
@@ -93,10 +105,10 @@ class Dashboard extends StatefulWidget {
         padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal:16.0),
         children: <Widget>[
           Container(color: Colors.transparent),
-          myItems(Icons.account_balance, 'Balance de Cuenta', Colors.blueAccent),
-          myItems(Icons.account_balance_wallet, 'Balance de Cartera', Colors.blueAccent),
-          myItems(Icons.attach_money, 'Balance de Inversion', Colors.blueAccent),
-          myItems(Icons.desktop_windows, 'Sistema', Colors.blueAccent),
+          myItems(Icons.account_balance, 'Balance de Cuenta', Colors.blue[900]),
+          myItems(Icons.account_balance_wallet, 'Balance de Cartera', Colors.blue[900]),
+          myItems(Icons.attach_money, 'Balance de Inversion', Colors.blue[900]),
+          myItems(Icons.desktop_windows, 'Sistema', Colors.blue[900]),
         ],
         staggeredTiles: [
           StaggeredTile.extent(2, MediaQuery.of(context).size.height*0.20),
@@ -108,12 +120,8 @@ class Dashboard extends StatefulWidget {
       );
     }
 
-
-  
-  
-    @override
+   @override
     Widget build(BuildContext context) {
-      // TODO: implement build
       return Container(
         child: Stack(
           fit: StackFit.expand,
