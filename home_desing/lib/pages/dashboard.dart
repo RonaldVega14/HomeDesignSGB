@@ -122,24 +122,25 @@ class Dashboard extends StatefulWidget {
 
    @override
     Widget build(BuildContext context) {
-      return Container(
-        child: Stack(
-          fit: StackFit.expand,
-          children: <Widget>[
-            Image.asset(
-              'assets/images/bg_sgb.jpg',
-              fit: BoxFit.cover
-              ),
-              BackdropFilter(
-                filter: ui.ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
-                child: Container(
-                  color: Colors.white.withOpacity(0.3),
+      return SafeArea(
+        child: Container(
+          child: Stack(
+            fit: StackFit.expand,
+            children: <Widget>[
+              Image.asset(
+                'assets/images/bg_sgb.jpg',
+                fit: BoxFit.cover
                 ),
-              ),
+                BackdropFilter(
+                  filter: ui.ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
+                  child: Container(
+                    color: Colors.white.withOpacity(0.3),
+                  ),
+                ),
               _buildContent(),
-          ],
-        )
-      );
+            ],
+          )
+        ),
+      );   
     }
-
 }
