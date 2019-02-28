@@ -9,6 +9,7 @@ class Dashboard extends StatefulWidget {
   
   class _DashboardState extends State<Dashboard> with TickerProviderStateMixin{
     
+    
 //Shadow of containers
   BoxDecoration _buildShadowAndRoundedCorners(){
     return BoxDecoration(
@@ -47,13 +48,14 @@ class Dashboard extends StatefulWidget {
     }
 //Construye el texto
     Widget _buildText(String title){
-      return 
-      Center(
+      return Center(
         child: Text(
           title,
           style:TextStyle(
           color: Colors.blueAccent,
-          fontSize: 16.0,
+          fontSize: 18.0,
+          fontFamily: 'Roboto',
+          fontWeight: FontWeight.w800,
           ),
         ),
       );
@@ -61,19 +63,12 @@ class Dashboard extends StatefulWidget {
 
     Widget _buildIcon(IconData icon, Color color){
       return Padding(
-        padding: const EdgeInsets.only(bottom: 12.0),
-        child: Material(
-        color: color,
-        borderRadius: BorderRadius.circular(12.0),
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
+          padding: const EdgeInsets.all(8.0),
           child: Icon(
             icon,
-            color: Colors.white,
-            size: 30.0,
+            color: Colors.blueAccent,
+            size: MediaQuery.of(context).size.height*0.08,
             ),
-          ),
-        ),
       );
     }
 
@@ -92,18 +87,19 @@ class Dashboard extends StatefulWidget {
 
     Widget _buildContent(){
       return StaggeredGridView.count(
-
         crossAxisCount: 2,
         crossAxisSpacing: 10.0,
         mainAxisSpacing: 10.0,
-        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal:16.0),
+        padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal:16.0),
         children: <Widget>[
+          Container(color: Colors.transparent),
           myItems(Icons.account_balance, 'Balance de Cuenta', Colors.blueAccent),
           myItems(Icons.account_balance_wallet, 'Balance de Cartera', Colors.blueAccent),
           myItems(Icons.attach_money, 'Balance de Inversion', Colors.blueAccent),
           myItems(Icons.desktop_windows, 'Sistema', Colors.blueAccent),
         ],
         staggeredTiles: [
+          StaggeredTile.extent(2, MediaQuery.of(context).size.height*0.20),
           StaggeredTile.extent(1, MediaQuery.of(context).size.height*0.25),
           StaggeredTile.extent(1, MediaQuery.of(context).size.height*0.25),
           StaggeredTile.extent(1, MediaQuery.of(context).size.height*0.25),
