@@ -71,74 +71,106 @@ class Dashboard extends StatefulWidget {
       );
   }
 //Construye la fila del texto
-    Widget _buildTextRow(String title, Color color){
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Flexible(child: Container(color: Colors.transparent),flex: 1, fit: FlexFit.tight),
-          Flexible(child: _buildText(title, color),flex: 3, fit: FlexFit.loose,),
-          Flexible(child: Container(color: Colors.transparent),flex: 1, fit: FlexFit.tight)
-        ],
+  Widget _buildTextRow(String title, Color color){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Flexible(child: Container(color: Colors.transparent),flex: 1, fit: FlexFit.tight),
+        Flexible(child: _buildText(title, color),flex: 3, fit: FlexFit.loose,),
+        Flexible(child: Container(color: Colors.transparent),flex: 1, fit: FlexFit.tight)
+      ],
 
-      );
-    }
+    );
+  }
 //Construye el icono
-    Widget _buildIcon(IconData icon, Color color){
-      return  Material(
-        color: color.withOpacity(0.7),
-        borderRadius: BorderRadius.circular(50.0),
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Icon(
-            icon,
-            color: Colors.white,
-            size: MediaQuery.of(context).size.height*0.07,
-          ),
+  Widget _buildIcon(IconData icon, Color color){
+    return  Material(
+      color: color.withOpacity(0.7),
+      borderRadius: BorderRadius.circular(50.0),
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Icon(
+          icon,
+          color: Colors.white,
+          size: MediaQuery.of(context).size.height*0.07,
         ),
-      ); 
-    }
+      ),
+    ); 
+  }
 //Construye las columnas
-    Widget _buildColumn(String title, IconData icon, Color color){
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-        //Icon
-        Flexible(child: _buildIcon(icon, color), flex: 3, fit: FlexFit.loose),
-        //Text
-        Flexible(child: _buildTextRow(title, color), flex: 1, fit: FlexFit.loose),
-        ],
-      );
-    }
+  Widget _buildColumn(String title, IconData icon, Color color){
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+      //Icon
+      Flexible(child: _buildIcon(icon, color), flex: 3, fit: FlexFit.loose),
+      //Text
+      Flexible(child: _buildTextRow(title, color), flex: 1, fit: FlexFit.loose),
+      ],
+    );
+  }
 //Junta y construye todo el contenido
-    Widget _buildContent(){
-      return StaggeredGridView.count(
-        crossAxisCount: 2,
-        crossAxisSpacing: 10.0,
-        mainAxisSpacing: 10.0,
-        padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal:16.0),
-        children: <Widget>[
-          Container(color: Colors.transparent),
-          myItems(Icons.account_balance, 'Balance de Cuenta', Colors.blue[900]),
-          myItems(Icons.account_balance_wallet, 'Balance de Cartera', Colors.blue[900]),
-          myItems(Icons.attach_money, 'Balance de Inversion', Colors.blue[900]),
-          myItems(Icons.desktop_windows, 'Sistema', Colors.blue[900]),
-        ],
-        staggeredTiles: [
-          StaggeredTile.extent(2, MediaQuery.of(context).size.height*0.20),
-          StaggeredTile.extent(1, MediaQuery.of(context).size.height*0.25),
-          StaggeredTile.extent(1, MediaQuery.of(context).size.height*0.25),
-          StaggeredTile.extent(1, MediaQuery.of(context).size.height*0.25),
-          StaggeredTile.extent(1, MediaQuery.of(context).size.height*0.25),
-        ],
-      );
-    }
+  Widget _buildContent(){
+    return StaggeredGridView.count(
+      crossAxisCount: 2,
+      crossAxisSpacing: 10.0,
+      mainAxisSpacing: 10.0,
+      padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal:16.0),
+      children: <Widget>[
+        Container(color: Colors.transparent),
+        myItems(Icons.account_balance, 'Balance de Cuenta', Colors.blue[900]),
+        myItems(Icons.account_balance_wallet, 'Balance de Cartera', Colors.blue[900]),
+        myItems(Icons.attach_money, 'Balance de Inversion', Colors.blue[900]),
+        myItems(Icons.desktop_windows, 'Sistema', Colors.blue[900]),
+      ],
+      staggeredTiles: [
+        StaggeredTile.extent(2, MediaQuery.of(context).size.height*0.20),
+        StaggeredTile.extent(1, MediaQuery.of(context).size.height*0.25),
+        StaggeredTile.extent(1, MediaQuery.of(context).size.height*0.25),
+        StaggeredTile.extent(1, MediaQuery.of(context).size.height*0.25),
+        StaggeredTile.extent(1, MediaQuery.of(context).size.height*0.25),
+      ],
+    );
+  }
+//Construye la barra inferior
+Widget _builBottomBar(){
+  return Theme(
+    data: Theme.of(context).copyWith(
+      canvasColor: Colors.white.withOpacity(0.4),
+      textTheme: Theme.of(context).textTheme.copyWith(caption: new TextStyle(color: Colors.black54))
+    ),
+    child:  BottomNavigationBar(
+    fixedColor: Colors.blue[900],
+    currentIndex: 0, // this will be set when a new tab is tapped
+    items: [
+      BottomNavigationBarItem(
+        icon: new Icon(Icons.home),
+        title: new Text('Home'),
+        
+      ),
+      BottomNavigationBarItem(
+        icon: new Icon(Icons.mail),
+        title: new Text('Messages'),
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.person),
+        title: Text('Profile')
+      )
+    ],
+  ),
+
+  );
+  
+ 
+}
 
    @override
     Widget build(BuildContext context) {
       return SafeArea(
-        child: Container(
+        child: Scaffold(
+          body: Container(
           child: Stack(
             fit: StackFit.expand,
             children: <Widget>[
@@ -146,16 +178,18 @@ class Dashboard extends StatefulWidget {
                 'assets/images/bg_sgb.jpg',
                 fit: BoxFit.cover
                 ),
-                BackdropFilter(
-                  filter: ui.ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
-                  child: Container(
-                    color: Colors.white.withOpacity(0.3),
-                  ),
+              BackdropFilter(
+                filter: ui.ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
+                child: Container(
+                  color: Colors.white.withOpacity(0.3),
                 ),
+              ),
               _buildContent(),
             ],
           )
         ),
-      );   
-    }
+        bottomNavigationBar: _builBottomBar(),
+      ), 
+    );   
+  }
 }
