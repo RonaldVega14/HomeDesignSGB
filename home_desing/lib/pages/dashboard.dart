@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'dart:ui' as ui;
 
+import 'package:home_desing/pages/bottomNavBar.dart';
+
 class Dashboard extends StatefulWidget {
   @override
   _DashboardState createState() => new _DashboardState();
@@ -155,7 +157,7 @@ class Dashboard extends StatefulWidget {
             ],
           )
         ),
-        //bottomNavigationBar: BottomNavBar(),
+        bottomNavigationBar: BottomNavBar(),
       ), 
     );   
   }

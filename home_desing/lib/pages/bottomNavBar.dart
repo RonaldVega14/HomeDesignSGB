@@ -12,6 +12,9 @@ class BottomNavBar extends StatefulWidget{
   class _BottomNavBarState extends State<BottomNavBar> with TickerProviderStateMixin {
   int _currentIndex;
   final List<Widget> _pages = [
+    Scaffold(backgroundColor: Colors.red),
+    Scaffold(backgroundColor: Colors.blue),
+    Scaffold(backgroundColor: Colors.green)
   ];
   
   //Construye la barra de navegacion inferior
