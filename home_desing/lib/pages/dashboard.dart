@@ -8,7 +8,8 @@ class Dashboard extends StatefulWidget {
     }
   
   class _DashboardState extends State<Dashboard> with TickerProviderStateMixin{
-    
+    int _currentIndex = 0;
+    final List<Widget> _pagesNav = [];
     
 //Shadow of containers
   BoxDecoration _buildShadowAndRoundedCorners(){
@@ -135,36 +136,41 @@ class Dashboard extends StatefulWidget {
     );
   }
 //Construye la barra inferior
+
+void onTabTapped(int index){
+  setState(() {
+   _currentIndex= index;
+  });
+}
+
 Widget _builBottomBar(){
   return Theme(
     data: Theme.of(context).copyWith(
-      canvasColor: Colors.white.withOpacity(0.4),
+      canvasColor: Colors.transparent,
       textTheme: Theme.of(context).textTheme.copyWith(caption: new TextStyle(color: Colors.black54))
     ),
     child:  BottomNavigationBar(
-    fixedColor: Colors.blue[900],
-    currentIndex: 0, // this will be set when a new tab is tapped
-    items: [
-      BottomNavigationBarItem(
-        icon: new Icon(Icons.home),
-        title: new Text('Home'),
-        
-      ),
-      BottomNavigationBarItem(
-        icon: new Icon(Icons.mail),
-        title: new Text('Messages'),
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.person),
-        title: Text('Profile')
-      )
-    ],
-  ),
-
+      onTap: onTabTapped,
+      fixedColor: Colors.blue[900],
+      currentIndex: _currentIndex, // this will be set when a new tab is tapped
+      items: [
+        BottomNavigationBarItem(
+          icon: new Icon(Icons.home),
+          title: new Text('Home'),  
+        ),
+        BottomNavigationBarItem(
+          icon: new Icon(Icons.mail),
+          title: new Text('Messages'),
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          title: Text('Profile')
+        )
+      ],
+    ),
   );
-  
- 
 }
+
 
    @override
     Widget build(BuildContext context) {
@@ -188,7 +194,7 @@ Widget _builBottomBar(){
             ],
           )
         ),
-        bottomNavigationBar: _builBottomBar(),
+        //bottomNavigationBar: _builBottomBar(),
       ), 
     );   
   }
