@@ -63,9 +63,9 @@ class Dashboard extends StatefulWidget {
         textAlign:TextAlign.center,
         style:TextStyle(
           color: color,
-          fontSize: 15.0,
+          fontSize: 14.0,
           fontFamily: 'Roboto',
-          fontWeight: FontWeight.w600
+          fontWeight: FontWeight.w300
           ),
         ),
       );
