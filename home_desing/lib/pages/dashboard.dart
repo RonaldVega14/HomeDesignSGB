@@ -54,23 +54,38 @@ class Dashboard extends StatefulWidget {
       ),
     ); 
   }
-//Construye el texto
-    Widget _buildText(String title, Color color){
-      return Center(
-        child: Text(
-          title,
-          style:TextStyle(
+
+//Construye el texto centrado
+  Widget _buildText(String title, Color color){
+    return Center(
+      child:Text(
+        title,
+        textAlign:TextAlign.center,
+        style:TextStyle(
           color: color,
-          fontSize: 18.0,
+          fontSize: 15.0,
           fontFamily: 'Roboto',
-          fontWeight: FontWeight.w800,
+          fontWeight: FontWeight.w600
           ),
         ),
+      );
+  }
+//Construye la fila del texto
+    Widget _buildTextRow(String title, Color color){
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Flexible(child: Container(color: Colors.transparent),flex: 1, fit: FlexFit.tight),
+          Flexible(child: _buildText(title, color),flex: 3, fit: FlexFit.loose,),
+          Flexible(child: Container(color: Colors.transparent),flex: 1, fit: FlexFit.tight)
+        ],
+
       );
     }
 //Construye el icono
     Widget _buildIcon(IconData icon, Color color){
-      return Material(
+      return  Material(
         color: color.withOpacity(0.7),
         borderRadius: BorderRadius.circular(50.0),
         child: Padding(
@@ -79,9 +94,9 @@ class Dashboard extends StatefulWidget {
             icon,
             color: Colors.white,
             size: MediaQuery.of(context).size.height*0.07,
-            ),
           ),
-       ); 
+        ),
+      ); 
     }
 //Construye las columnas
     Widget _buildColumn(String title, IconData icon, Color color){
@@ -92,7 +107,7 @@ class Dashboard extends StatefulWidget {
         //Icon
         Flexible(child: _buildIcon(icon, color), flex: 3, fit: FlexFit.loose),
         //Text
-        Flexible(child: _buildText(title, color), flex: 1, fit: FlexFit.loose),
+        Flexible(child: _buildTextRow(title, color), flex: 1, fit: FlexFit.loose),
         ],
       );
     }
